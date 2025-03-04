@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Encryption</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+
+</head>
+<body>
+    <h1>Chess Encryption</h1>
+    
+    <h2>Encrypt a Message</h2>
+    <textarea id="message" placeholder="Enter your message"></textarea>
+    <button onclick="encryptMessage()">Encrypt</button>
+    <p>Encrypted Moves: <span id="encryptedOutput"></span></p>
+    <button id="copyButton" style="display: none;" onclick="copyToClipboard()">Copy Encrypted Message</button>
+
+    <h2>Interactive Chessboard</h2>
+    <div class="chessboard">
+        {% set files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] %}
+        {% for row in range(8, 0, -1) %}
+            <div class="row">
+                {% for col_index in range(8) %}
+                    {% set col = files[col_index] %}
+                    {% set is_black = (row + col_index) % 2 == 0 %}
+                    <div class="square {% if is_black %}black{% else %}white{% endif %}" 
+                         id="{{ col }}{{ row }}" 
+                         onclick="handleSquareClick('{{ col }}{{ row }}')">
+                        <span class="hidden-message" id="msg-{{ col }}{{ row }}"></span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2>Decrypt a Message</h2>
+    <textarea id="encrypted" placeholder="Enter encrypted message"></textarea>
+    <button onclick="decryptMessage()">Decrypt</button>
+    <button onclick="pasteFromClipboard()">Paste</button>
+    <p>Decrypted Message:</p>
+    <pre id="decryptedOutput"></pre>
+    
+    <p></p> <p></p>
+
+    <script>
+        function pasteFromClipboard() {
+            navigator.clipboard.readText().then(text => {
+                document.getElementById('encrypted').value = text;
+            }).catch(err => {
+                console.error('Failed to read clipboard: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+
+body {
+    background-color: black;
+    color: #00ff00; /* Toxic Green */
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto; /* Fix scrolling */
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        rgba(0, 0, 0, 0.2) 0px,
+        rgba(0, 0, 0, 0.2) 2px,
+        rgba(0, 255, 0, 0.05) 3px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Flickering Neon Effect */
+@keyframes flicker {
+    0%, 100% { opacity: 1; text-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
+    50% { opacity: 0.6; text-shadow: 0 0 2px currentColor, 0 0 5px currentColor; }
+}
+
+/* Headings */
+h1, h2 {
+    text-transform: uppercase;
+    font-size: 24px;
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    animation: flicker 1.5s infinite alternate;
+    margin-bottom: 20px;
+}
+
+/* Input Boxes */
+textarea {
+    background-color: black;
+    color: currentColor;
+    border: 2px solid currentColor;
+    font-size: 18px;
+    font-family: 'Courier New', monospace;
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+    resize: vertical;
+}
+
+/* Glowing Buttons */
+button {
+    background-color: black;
+    border: 2px solid currentColor;
+    color: currentColor;
+    font-size: 18px;
+    font-family: 'Courier New', monospace;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    animation: flicker 2s infinite alternate;
+}
+
+button:hover {
+    background-color: currentColor;
+    color: black;
+    box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+}
+
+/* Terminal Output */
+#encryptedOutput, #decryptedOutput {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: black;
+    padding: 10px;
+    display: inline-block;
+    border: 2px solid currentColor;
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+    width: 80%;
+    word-wrap: break-word;
+    animation: flicker 2s infinite alternate;
+}
+
+/* Chessboard Styling */
+.chessboard {
+    display: inline-block;
+    border: 5px solid currentColor;
+    padding: 5px;
+    box-shadow: 0 0 20px currentColor;
+    margin-top: 20px;
+}
+
+/* Chessboard Tiles */
+.row {
+    display: flex;
+}
+
+.square {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    transition: background 0.5s;
+}
+
+.black {
+    background-color: #111;
+}
+
+.white {
+    background-color: #333;
+}
+
+/* Hidden Messages - Red Glitch */
+.hidden-message {
+    color: #ff0000; /* Danger Red */
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+    font-size: 20px;
+    font-weight: bold;
+    display: none;
+    animation: glitch 0.5s infinite alternate;
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+    0% { transform: skew(0deg); text-shadow: 0 0 5px #ff0000; }
+    50% { transform: skew(-5deg); text-shadow: 2px -2px 10px #ff0000; }
+    100% { transform: skew(5deg); text-shadow: -2px 2px 10px #ff0000; }
+}
+
+/* Blinking Cursor Effect */
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.blinking {
+    animation: blink 1s infinite;
+}
+
+/* Terminal Border for Containers */
+.terminal-box {
+    border: 3px solid currentColor;
+    padding: 20px;
+    box-shadow: 0 0 20px currentColor;
+    background: rgba(0, 0, 0, 0.9);
+    display: inline-block;
+    width: 80%;
+    margin-top: 20px;
+}
+
+/* Scroll Fix for Long Pages */
+html, body {
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Fix for Mobile */
+@media (max-width: 768px) {
+    .chessboard {
+        width: 90%;
+    }
+    .square {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
